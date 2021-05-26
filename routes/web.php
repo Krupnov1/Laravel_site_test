@@ -31,11 +31,11 @@ Route::group(['prefix' => 'admin'], function() {
 Route::get('/', [NewsController::class, 'index']);
 
 Route::get('/category', [NewsController::class, 'newsCategoryShow'])
-    ->name('news');
-
-Route::get('/category/{id}/news', [NewsController::class, 'newsCategoryOutput'])
-    ->where('id', '\d+')
     ->name('newsCategory');
+
+Route::get('/category/{id}/news', [NewsController::class, 'newsOutput'])
+    ->where('id', '\d+')
+    ->name('news');
 
 Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')

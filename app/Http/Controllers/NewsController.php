@@ -18,9 +18,9 @@ class NewsController extends Controller
         ]);
     }
 
-    public function newsCategoryOutput() {
+    public function newsOutput() {
 
-        return view('news.newsCategory', [
+        return view('news.news', [
             'newsList' => $this->newsList
         ]);
     }

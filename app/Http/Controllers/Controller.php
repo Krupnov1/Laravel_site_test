@@ -12,11 +12,15 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests; 
 
     protected array $newsCategoryList = [
-        'News Category 1',
-        'News Category 2',
-        'News Category 3',
-        'News Category 4',
-        'News Category 5'
+        'Category 1',
+        'Category 2',
+        'Category 3',
+        'Category 4',
+        'Category 5',
+        'Category 6',
+        'Category 7',
+        'Category 8',
+        'Category 9',
     ];
 
     protected array $newsList = [
@@ -24,6 +28,10 @@ class Controller extends BaseController
         'News 2',
         'News 3',
         'News 4',
-        'News 5'
+        'News 5',
+        'News 6',
+        'News 7',
+        'News 8',
+        'News 9',
     ];
 }
