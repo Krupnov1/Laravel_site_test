@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Form\OrdersController;
+use App\Http\Controllers\Form\ReviewsController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\NewsController;
@@ -24,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 //admin
 Route::group(['prefix' => 'admin'], function() {
     Route::resource('/categories', CategoryController::class);
-    Route::resource('news', AdminNewsController::class);
+    Route::resource('/news', AdminNewsController::class);
 });
 
 //news
@@ -41,13 +43,10 @@ Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
 
-
-/*Route::get('/hello/{name}', function ($name) {
-    return "Hello, " . $name;
+//form
+Route::group(['prefix' => 'form'], function() {
+    Route::resource('/reviews', ReviewsController::class)
+        ->name('index', 'reviews');
+    Route::resource('/orders', OrdersController::class)
+        ->name('index', 'orders');
 });
-
-Route::get('/information/{project}', function ($project) {
-    return "Information about " . $project;
-});
-
-*/

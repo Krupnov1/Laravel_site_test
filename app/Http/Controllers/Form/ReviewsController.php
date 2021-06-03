@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Form;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class NewsController extends Controller
+class ReviewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index');
+        return view('form.reviews');
     }
 
     /**
@@ -24,7 +25,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+        //
     }
 
     /**
@@ -35,13 +36,12 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
+        $fields = $request->only('title', 'description');
+        $field = json_encode($fields);
 
-        $fields = $request->only('title', 'description', 'slug');
-        //dd($fields);
-        return response()->json($fields);
+        //Storage::disk('local')->put('orders.json', $field);
+        Storage::append('reviews.json', $field);
+        dd($field);
     }
 
     /**
@@ -63,9 +63,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.news.edit', [
-            'id' => $id
-        ]);
+        //
     }
 
     /**

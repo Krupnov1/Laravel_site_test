@@ -2,15 +2,15 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link @if(request()->routeIs('categories.*')) active @endif" aria-current="page" href="{{ route('categories.index') }}">
                 <span data-feather="home"></span>
-                Dashboard
+                Категории
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link @if(request()->routeIs('news.*')) active @endif" href="{{ route('news.index') }}">
                 <span data-feather="file"></span>
-                Orders
+                Новости
                 </a>
             </li>
             <li class="nav-item">
@@ -39,7 +39,7 @@
             </li>
         </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <!--<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Saved reports</span>
             <a class="link-secondary" href="#" aria-label="Add a new report">
                 <span data-feather="plus-circle"></span>
@@ -70,6 +70,6 @@
                 Year-end sale
                 </a>
             </li>
-        </ul>
+        </ul>-->
     </div>
 </nav>
