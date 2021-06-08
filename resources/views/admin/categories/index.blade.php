@@ -5,13 +5,39 @@
         <h1 class="h2">Список категорий новостей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Добавить категорию</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Удалить категорию</button>
+                <a class="btn btn-sm btn-outline-secondary">Добавить категорию</a>
+                <a class="btn btn-sm btn-outline-secondary">Удалить категорию</a>
             </div>
             <!--<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
                 <span data-feather="calendar"></span>
                 This week
             </button>-->
         </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>№ID</th>
+                    <th>Заголовок</th>
+                    <th>Описание</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($categories as $category) 
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->title }}</td>
+                    <td>{{ $category->description }}</td>
+                    <td><a class="btn btn-sm btn-outline-secondary">Редактировать</a></td>
+                </tr>
+                @empty
+                    <tr>
+                        <td colspan="4"><h3>Записей нет</h3></td>
+                    </tr>
+                @endforelse 
+            </tbody>
+        </table>
     </div>
 @endsection 
