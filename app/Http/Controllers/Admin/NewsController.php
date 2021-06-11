@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\News;
 
 class NewsController extends Controller
 {
@@ -14,7 +17,13 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index');
+        $newsList = News::with('category')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+            
+        return view('admin.news.index', [
+            'newsList' => $newsList
+        ]);
     }
 
     /**
@@ -24,7 +33,10 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+        $categories = Category::all();
+        return view('admin.news.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -39,9 +51,13 @@ class NewsController extends Controller
             'title' => ['required']
         ]);
 
-        $fields = $request->only('title', 'description', 'slug');
-        //dd($fields);
-        return response()->json($fields);
+        $fields = $request->only('category_id', 'title', 'image', 'description', 'status');
+        $fields['slug'] = Str::slug($fields['title']);
+        $news = News::create($fields);
+        if ($news) {
+            return redirect()->route('news.index'); 
+        }
+        return back();
     }
 
     /**
@@ -50,9 +66,11 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
-        //
+        return view('admin.news.show', [
+            'news' => $news
+        ]);
     }
 
     /**
@@ -61,10 +79,12 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
+        $categories = Category::all();
         return view('admin.news.edit', [
-            'id' => $id
+            'news' => $news, 
+            'categories' => $categories
         ]);
     }
 
@@ -75,9 +95,20 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
-        //
+        $request->validate([
+            'title' => ['required']
+        ]);
+
+        $fields = $request->only('category_id', 'title', 'image', 'description', 'status');
+        $fields['slug'] = Str::slug($fields['title']);
+
+        $news = $news->fill($fields)->save();
+        if ($news) {
+            return redirect()->route('news.index'); 
+        }
+        return back();
     }
 
     /**
@@ -86,8 +117,11 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($news)
     {
-        //
+        $news = News::find($news);
+        $news->delete();
+        
+        return redirect()->route('news.index'); 
     }
 }

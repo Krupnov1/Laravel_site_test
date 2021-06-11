@@ -23,9 +23,9 @@ class CategoriesSeeder extends Seeder
         $faker = Factory::create();
         $data = [];
 
-        for($i=0; $i<4; $i++) {
+        for($i=0; $i<6; $i++) {
             $data[] = [
-                'title' => $faker->sentence(mt_rand(3, 10)),
+                'title' => $faker->sentence(mt_rand(3, 10)), 
                 'description' => $faker->text(150),
                 'created_at' => now(),
                 'updated_at' => now() 

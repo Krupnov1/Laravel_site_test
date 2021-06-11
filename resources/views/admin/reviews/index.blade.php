@@ -1,11 +1,11 @@
 @extends('layouts.admin')
-@section('title') категории новостей @parent @stop
+@section('title') обратная связь @parent @stop
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Список категорий новостей</h1>
+        <h1 class="h2">Отзывы пользователей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('categories.create') }}" class="btn btn-sm btn-outline-secondary">Добавить категорию</a>
+                <a href="{{ route('review.create') }}" class="btn btn-sm btn-outline-secondary">Добавить комментарий</a>
             </div>
             <!--<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle"> 
                 <span data-feather="calendar"></span>
@@ -18,21 +18,21 @@
             <thead>
                 <tr>
                     <th>№ID</th>
-                    <th>Заголовок</th>
-                    <th>Описание</th>
+                    <th>Имя</th>
+                    <th>Комментарий</th>
                     <th>Дата добавления</th> 
                     <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($categories as $category) 
+                @forelse($feedbacks as $review) 
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->title }}</td>
-                    <td>{{ $category->description }}</td>
-                    <td>{{ $category->created_at->format('d-m-Y H:i') }}</td>
-                    <td><a href="{{ route('categories.edit', ['category' => $category]) }}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
-                        <a href="{{ route('categories.show', ['category' => $category]) }}" class="btn btn-sm btn-outline-secondary">Удалить</a>
+                    <td>{{ $review->id }}</td>
+                    <td>{{ $review->name }}</td>
+                    <td>{{ $review->comment }}</td>
+                    <td>{{ $review->created_at->format('d-m-Y H:i') }}</td>
+                    <td><a href="{{ route('review.edit', ['review' => $review]) }}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                        <a href="{{ route('review.show', ['review' => $review]) }}" class="btn btn-sm btn-outline-secondary">Удалить</a>
                     </td>
                 </tr>
                 @empty

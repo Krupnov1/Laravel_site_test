@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Form\OrdersController;
 use App\Http\Controllers\Form\ReviewsController;
+use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\OrdersController as AdminOrdersController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\NewsController;
@@ -27,21 +29,23 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'admin'], function() {
     Route::resource('/categories', CategoryController::class);
     Route::resource('/news', AdminNewsController::class);
+    Route::resource('/review', FeedbackController::class);
+    Route::resource('/order', AdminOrdersController::class); 
 });
 
 //news
 Route::get('/', [NewsController::class, 'index']);
 
-Route::get('/category', [NewsController::class, 'newsCategoryShow'])
+Route::get('/category', [NewsController::class, 'newsCategoryShow']) 
     ->name('newsCategory');
 
-Route::get('/category/{id}/news', [NewsController::class, 'newsOutput'])
+Route::get('/category/{id}/news', [NewsController::class, 'newsOutput']) 
     ->where('id', '\d+')
     ->name('news');
 
-Route::get('/news/{id}', [NewsController::class, 'show'])
+Route::get('/news/{id}', [NewsController::class, 'newsShow'])
     ->where('id', '\d+')
-    ->name('news.show');
+    ->name('newsshow');
 
 //form
 Route::group(['prefix' => 'form'], function() {

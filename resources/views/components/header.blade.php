@@ -11,7 +11,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ route('reviews') }}" class="text-white">Отзывы</a></li>
                         <li><a href="{{ route('orders') }}" class="text-white">Заказы</a></li>
-                        <li><a href="#" class="text-white">Email me</a></li>
+                        <li><a href="{{ route('categories.index') }}" class="text-white">Админ</a></li>
                     </ul>
                 </div>
             </div>

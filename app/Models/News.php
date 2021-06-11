@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class News extends Model
 {
@@ -12,19 +11,12 @@ class News extends Model
 
     protected $table = "news";
 
-    public function getNewsList() {
+    protected $fillable = [
+        'category_id', 'title', 'image', 'description', 'status', 'slug'  
+    ];
 
-        return DB::table($this->table)
-            ->join('categories', 'news.category_id', '=', 'categories.id')
-            ->select(['news.*', 'categories.title as category_title'])
-            ->get();
-    }
+    public function category() {
 
-    public function getNews($id) {
-
-        return DB::table($this->table)
-            ->select(['id', 'title', 'description', 'created_at'])
-            ->where(['id' => $id])
-            ->first();
+        return $this->belongsTo(Category::class, 'category_id', 'id'); 
     }
 }

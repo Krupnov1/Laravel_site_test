@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Feedback;
 use Illuminate\Http\Request;
-use App\Models\Category;
 
-class CategoryController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', [
-            'categories' => $categories
+        $feedbacks = Feedback::all();
+        return view('admin.reviews.index', [
+            'feedbacks' => $feedbacks
         ]);
     }
 
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.reviews.create');
     }
 
     /**
@@ -40,14 +40,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required']
+            'name' => ['required']
         ]);
 
-        $fields = $request->only('title', 'description');
-        $categories = Category::create($fields);
+        $fields = $request->only('name', 'comment');
+        $feedback = Feedback::create($fields);
 
-        if ($categories) {
-            return redirect()->route('categories.index'); 
+        if ($feedback) {
+            return redirect()->route('review.index'); 
         }
         return back();
     }
@@ -58,10 +58,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Feedback $review)
     {
-        return view('admin.categories.show', [
-            'category' => $category
+        return view('admin.reviews.show', [
+            'review' => $review
         ]);
     }
 
@@ -71,10 +71,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($review)
     {
-        return view('admin.categories.edit', [
-            'category' => $category
+        return view('admin.reviews.edit', [
+            'review' => $review
         ]);
     }
 
@@ -85,17 +85,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Feedback $review)
     {
         $request->validate([
-            'title' => ['required']
+            'name' => ['required']
         ]);
 
-        $fields = $request->only('title', 'description');
+        $fields = $request->only('name', 'comment');
 
-        $category = $category->fill($fields)->save();
-        if ($category) {
-            return redirect()->route('categories.index'); 
+        $review = $review->fill($fields)->save();
+
+        if ($review) {
+            return redirect()->route('review.index'); 
         }
         return back();
     }
@@ -106,11 +107,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($category)
+    public function destroy($review)
     {
-        $categories = Category::find($category);
-        $categories->delete();
+        $reviews = Feedback::find($review);
+        $reviews->delete();
         
-        return redirect()->route('categories.index'); 
+        return redirect()->route('review.index'); 
     }
 }

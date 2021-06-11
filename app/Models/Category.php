@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
@@ -12,18 +11,14 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    public function getCategoriesList() {
-        
-        return DB::table($this->table)
-            ->select(['id', 'title', 'description']) 
-            ->get();
-    }
+    protected $primaryKey = 'id';
 
-    public function getCategory($id) {
+    protected $fillable = [
+        'title', 'description' 
+    ];
 
-        return DB::table($this->table)
-            ->select(['id', 'title', 'description'])
-            ->where(['id' => $id])
-            ->first();
+    public function news() {
+
+        return $this->hasMany(News::class, 'category_id', 'id');  
     }
 }

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
-use App\Models\Category;
 
-class CategoryController extends Controller
+class OrdersController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', [
-            'categories' => $categories
+        $orders = Order::all();
+        return view('admin.orders.index', [
+            'orders' => $orders
         ]);
     }
 
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.orders.create');
     }
 
     /**
@@ -40,14 +40,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required']
+            'name' => ['required'],
+            'email' => ['required'],
+            'comment' => ['required']
         ]);
 
-        $fields = $request->only('title', 'description');
-        $categories = Category::create($fields);
+        $fields = $request->only('name', 'tel', 'email', 'comment');
+        $order = Order::create($fields);
 
-        if ($categories) {
-            return redirect()->route('categories.index'); 
+        if ($order) {
+            return redirect()->route('order.index'); 
         }
         return back();
     }
@@ -58,10 +60,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Order $order)
     {
-        return view('admin.categories.show', [
-            'category' => $category
+        return view('admin.orders.show', [
+            'order' => $order
         ]);
     }
 
@@ -71,10 +73,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($order)
     {
-        return view('admin.categories.edit', [
-            'category' => $category
+        return view('admin.orders.edit', [
+            'order' => $order
         ]);
     }
 
@@ -85,17 +87,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Order $order)
     {
         $request->validate([
-            'title' => ['required']
+            'name' => ['required'],
+            'email' => ['required'],
+            'comment' => ['required']
         ]);
 
-        $fields = $request->only('title', 'description');
+        $fields = $request->only('name', 'tel', 'email', 'comment');
 
-        $category = $category->fill($fields)->save();
-        if ($category) {
-            return redirect()->route('categories.index'); 
+        $order = $order->fill($fields)->save();
+
+        if ($order) {
+            return redirect()->route('order.index'); 
         }
         return back();
     }
@@ -106,11 +111,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($category)
+    public function destroy($order)
     {
-        $categories = Category::find($category);
-        $categories->delete();
+        $orders = Order::find($order);
+        $orders->delete();
         
-        return redirect()->route('categories.index'); 
+        return redirect()->route('order.index'); 
     }
 }

@@ -14,15 +14,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="shopping-cart"></span>
-                Products
+                <a class="nav-link @if(request()->routeIs('review.*')) active @endif" href="{{ route('review.index') }}">
+                <span data-feather="users"></span>
+                Отзывы
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Customers
+                <a class="nav-link @if(request()->routeIs('order.*')) active @endif" href="{{ route('order.index') }}">
+                <span data-feather="shopping-cart"></span>
+                Заказы
                 </a>
             </li>
             <li class="nav-item">

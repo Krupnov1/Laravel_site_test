@@ -4,17 +4,24 @@
     <div class="col-md-6 container text-verticals"> 
         <br>
         <h1 class="h2">Форма обратной связи</h1>
-        <div class="/*btn-toolbar mb-2 mb-md-0*/">
-            <form method="POST" action="{{ route('reviews.store') }}">
+        <div class="/*btn-toolbar mb-2 mb-md-0*/"> 
+
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            @endif
+            
+            <form method="POST" action="{{ route('reviews.store') }}"> 
                 @csrf
                 <div class="farm-group">
-                    <label for="title">Имя *</label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+                    <label for="name">Имя *</label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
                 </div>
                 <br>
                 <div class="farm-group">
-                    <label for="description">Комментарий/отзыв *</label>
-                    <textarea class="form-control" name="description" id="description">{!! old('description') !!}</textarea>
+                    <label for="comment">Комментарий/отзыв *</label>
+                    <textarea class="form-control" name="comment" id="comment">{!! old('comment') !!}</textarea>
                 </div>
                 <br>
                 <button class="btn btn-success" type="submit">Отправить отзыв</button>

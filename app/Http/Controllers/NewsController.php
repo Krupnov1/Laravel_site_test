@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\News;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -15,25 +16,28 @@ class NewsController extends Controller
 
     public function newsCategoryShow() {
 
-        $model = new Category();
-        $categories = $model->getCategoriesList();
+        $categories = Category::all();
         return view('news.category', [
-            'categories' => $categories   
-        ]);
+            'categories' => $categories      
+        ]); 
     }
 
-    public function newsOutput() {
+    public function newsOutput($id) {
 
-        $model = new News();
+        $newsList = News::query()
+            ->join('categories', 'news.category_id', '=', 'categories.id')
+            ->select('news.*')
+            ->where('categories.id', '=', $id)
+            ->get();
+
         return view('news.news', [
-            'newsList' => $model->getNewsList()
+            'newsList' => $newsList
         ]);
     }
 
-    public function show(int $id) {
+    public function newsShow(int $id) {
 
-        $model = new News();
-        $news = $model->getNews($id);
+        $news = News::find($id);
         return view('news.show', [
             'news' => $news
         ]);
