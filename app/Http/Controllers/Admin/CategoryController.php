@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCreate;
+use App\Http\Requests\CategoryEdit;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
@@ -37,12 +39,8 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryCreate $request)
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
-
         $fields = $request->only('title', 'description');
         $categories = Category::create($fields);
 
@@ -85,15 +83,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryEdit $request, Category $category) 
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
-
         $fields = $request->only('title', 'description');
-
         $category = $category->fill($fields)->save();
+        
         if ($category) {
             return redirect()->route('categories.index'); 
         }

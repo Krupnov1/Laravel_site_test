@@ -16,12 +16,12 @@
                 @method('put')
                 <div class="farm-group">
                     <label for="name">Имя *</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                    <input type="text" class="form-control" name="name" id="name" value="{{ $review->name }}">
                 </div>
                 <br>
                 <div class="farm-group">
                     <label for="comment">Комментарий *</label>
-                    <textarea class="form-control" name="comment" id="comment">{!! old('comment') !!}</textarea>
+                    <textarea class="form-control" name="comment" id="comment">{!! $review->comment !!}</textarea>
                 </div>
                 <br>
                 <button class="btn btn-success" type="submit">Редактировать новость</button>

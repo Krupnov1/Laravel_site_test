@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsCreate;
+use App\Http\Requests\NewsEdit;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\News;
@@ -45,13 +47,9 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsCreate $request)
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
-
-        $fields = $request->only('category_id', 'title', 'image', 'description', 'status');
+        $fields = $request->only('category_id', 'title', 'image', 'description', 'status'); 
         $fields['slug'] = Str::slug($fields['title']);
         $news = News::create($fields);
         if ($news) {
@@ -95,12 +93,8 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(NewsEdit $request, News $news)
     {
-        $request->validate([
-            'title' => ['required']
-        ]);
-
         $fields = $request->only('category_id', 'title', 'image', 'description', 'status');
         $fields['slug'] = Str::slug($fields['title']);
 

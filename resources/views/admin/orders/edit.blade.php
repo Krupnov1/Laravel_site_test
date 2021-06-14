@@ -16,22 +16,22 @@
                 @method('put')
                 <div class="farm-group">
                     <label for="name">Имя *</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                    <input type="text" class="form-control" name="name" id="name" value="{{ $order->name }}">
                 </div>
                 <br>
                 <div class="farm-group">
                     <label for="tel">Телефон *</label>
-                    <input type="text" class="form-control" name="tel" id="tel" value="{{ old('tel') }}">
+                    <input type="text" class="form-control" name="tel" id="tel" value="{{ $order->tel }}">
                 </div>
                 <br>
                 <div class="farm-group">
                     <label for="email">Электронная почта *</label>
-                    <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}">
+                    <input type="text" class="form-control" name="email" id="email" value="{{ $order->email }}">
                 </div>
                 <br>
                 <div class="farm-group">
                     <label for="comment">Комментарий *</label>
-                    <textarea class="form-control" name="comment" id="comment">{!! old('comment') !!}</textarea>
+                    <textarea class="form-control" name="comment" id="comment">{!! $order->comment !!}</textarea>
                 </div>
                 <br>
                 <button class="btn btn-success" type="submit">Редактировать заказ</button>

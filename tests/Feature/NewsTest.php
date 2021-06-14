@@ -41,16 +41,4 @@ class NewsTest extends TestCase
 
         $response->assertStatus(200);
     }
-
-    public function test_news_store() 
-    {   
-        $data = [
-            'title' => 'Example text',
-            'description' => 'Example description',
-            'slug' => 'Example slug'
-        ];
-
-        $response = $this->post(route('news.store'), $data);
-        $response->assertJson($data);   
-    }
 }

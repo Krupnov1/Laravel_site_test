@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FeedbackCreate;
+use App\Http\Requests\FeedbackEdit;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 
@@ -37,12 +39,8 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FeedbackCreate $request)
     {
-        $request->validate([
-            'name' => ['required']
-        ]);
-
         $fields = $request->only('name', 'comment');
         $feedback = Feedback::create($fields);
 
@@ -71,7 +69,7 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($review)
+    public function edit(Feedback $review)
     {
         return view('admin.reviews.edit', [
             'review' => $review
@@ -85,14 +83,9 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Feedback $review)
+    public function update(FeedbackEdit $request, Feedback $review)
     {
-        $request->validate([
-            'name' => ['required']
-        ]);
-
         $fields = $request->only('name', 'comment');
-
         $review = $review->fill($fields)->save();
 
         if ($review) {

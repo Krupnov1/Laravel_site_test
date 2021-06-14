@@ -16,7 +16,7 @@ class CategoryTest extends TestCase
     
     public function test_category()
     {   
-        $response = $this->get(route('newsCategory'));
+        $response = $this->get(route('newsCategory')); 
 
         $response->assertStatus(200);
     }

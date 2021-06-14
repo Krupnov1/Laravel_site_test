@@ -16,12 +16,12 @@
                 @method('put')
                 <div class="farm-group">
                     <label for="title">Заголовок *</label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+                    <input type="text" class="form-control" name="title" id="title" value="{{ $category->title }}">
                 </div>
                 <br>
                 <div class="farm-group">
                     <label for="description">Описание *</label>
-                    <textarea class="form-control" name="description" id="description">{!! old('description') !!}</textarea>
+                    <textarea class="form-control" name="description" id="description">{!! $category->description !!}</textarea>
                 </div>
                 <br>
                 <button class="btn btn-success" type="submit">Редактировать категорию</button>
