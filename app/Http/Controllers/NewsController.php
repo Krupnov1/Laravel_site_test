@@ -13,7 +13,7 @@ class NewsController extends Controller
 
         return view('news.index');        
     }
-
+ 
     public function newsCategoryShow() {
 
         $categories = Category::all();

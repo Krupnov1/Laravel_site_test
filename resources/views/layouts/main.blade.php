@@ -9,6 +9,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <style>
         .bd-placeholder-img {
@@ -29,6 +30,22 @@
             padding-top: 50px;
             padding-bottom: 150px;
         }
+
+        .register-container {
+            margin-top: 100px;
+            margin-bottom: 30px;
+        }
+
+        .login-container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        .home-container, .email-container {
+            margin-top: 130px;
+            margin-bottom: 170px;
+        }
+
         </style>
 
     </head>

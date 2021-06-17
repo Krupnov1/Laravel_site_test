@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FeedbackCreate;
-use App\Http\Requests\FeedbackEdit;
-use App\Models\Feedback;
+use App\Http\Requests\ProfileCreate;
+use App\Http\Requests\ProfileEdit;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class FeedbackController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function index()
     {
-        $feedbacks = Feedback::all();
-        return view('admin.reviews.index', [
-            'feedbacks' => $feedbacks
+        $profiles = User::all();
+        return view('admin.profile.index', [
+            'profiles' => $profiles
         ]);
     }
 
@@ -30,7 +30,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        return view('admin.reviews.create');
+        return view('admin.profile.create');
     }
 
     /**
@@ -39,13 +39,13 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FeedbackCreate $request)
+    public function store(ProfileCreate $request)
     {
-        $fields = $request->only('name', 'comment');
-        $feedback = Feedback::create($fields);
+        $fields = $request->only('name', 'email', 'password', 'is_admin');
+        $feedback = User::create($fields);
 
         if ($feedback) {
-            return redirect()->route('review.index'); 
+            return redirect()->route('profile.index'); 
         }
         return back();
     }
@@ -56,10 +56,10 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Feedback $review)
+    public function show(User $profile)
     {
-        return view('admin.reviews.show', [
-            'review' => $review
+        return view('admin.profile.show', [
+            'profile' => $profile
         ]);
     }
 
@@ -69,10 +69,10 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Feedback $review)
+    public function edit(User $profile)
     {
-        return view('admin.reviews.edit', [
-            'review' => $review
+        return view('admin.profile.edit', [
+            'profile' => $profile
         ]);
     }
 
@@ -82,14 +82,14 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */ 
-    public function update(FeedbackEdit $request, Feedback $review)
+     */
+    public function update(ProfileEdit $request, User $profile)
     {
-        $fields = $request->only('name', 'comment');
-        $review = $review->fill($fields)->save();
+        $fields = $request->only('name', 'email', 'password', 'is_admin');
+        $profile = $profile->fill($fields)->save();
 
-        if ($review) {
-            return redirect()->route('review.index'); 
+        if ($profile) {
+            return redirect()->route('profile.index'); 
         }
         return back();
     }
@@ -100,11 +100,11 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($review)
+    public function destroy($profile)
     {
-        $reviews = Feedback::find($review);
-        $reviews->delete();
+        $profile = User::find($profile);
+        $profile->delete();
         
-        return redirect()->route('review.index'); 
+        return redirect()->route('profile.index'); 
     }
 }

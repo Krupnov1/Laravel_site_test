@@ -26,9 +26,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link @if(request()->routeIs('profile.*')) active @endif" href="{{ route('profile.index') }}">
                 <span data-feather="bar-chart-2"></span>
-                Reports
+                Профили пользователей
                 </a>
             </li>
             <li class="nav-item">
