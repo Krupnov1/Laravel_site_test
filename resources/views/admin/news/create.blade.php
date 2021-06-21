@@ -15,7 +15,7 @@
                 @csrf
                 <div class="farm-group">
                     <label for="category_id">Категория *</label>
-                    <select class="form-control" name="category_id" id="category_id">
+                    <select class="form-control" name="category_id" id="category_id"> 
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->title }}</option>
                     @endforeach
@@ -45,15 +45,6 @@
                 <br>
                 <button class="btn btn-success" type="submit">Добавить новость</button>
             </form>
-
-            <!--<div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-            </button>-->
         </div>
     </div>
 @endsection 

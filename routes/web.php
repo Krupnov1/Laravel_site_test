@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\OrdersController as AdminOrdersController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,12 +39,14 @@ Route::group(['middleware' => 'auth'], function() {
         })->name('account.logout');
     });
     //admin
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() { 
         Route::resource('/categories', CategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/review', FeedbackController::class);
         Route::resource('/order', AdminOrdersController::class); 
         Route::resource('/profile', ProfileController::class);
+        Route::get('/parser', [ParserController::class, 'index'])
+            ->name('parser');
     });
 
 });
@@ -76,3 +80,9 @@ Route::group(['prefix' => 'form'], function() {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//auth.vk
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/login/vk', [SocialController::class, 'login'])->name('login.vk');
+    Route::get('/callback/vk', [SocialController::class, 'callback'])->name('callback.vk');
+});

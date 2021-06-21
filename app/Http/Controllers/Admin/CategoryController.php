@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $categories = Category::create($fields);
 
         if ($categories) {
-            return redirect()->route('categories.index'); 
+            return redirect()->route('categories.index');   
         }
         return back();
     }
